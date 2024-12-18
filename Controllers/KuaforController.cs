@@ -1,20 +1,39 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using WebProgramlama.Data;
 using WebProgramlama.Models;
 
-
-
-public class KuaforController : Controller
+namespace WebProgramlama.Controllers
 {
-    public IActionResult Index()
+    public class KuaforController : Controller
     {
-        // Tüm salonları listeleyecek
-        return View();
-    }
+        private readonly KuaforContext _context;
 
-    public IActionResult Details(int id)
-    {
-        // Bir salon detaylarını gösterecek
-        return View();
+        public KuaforController(KuaforContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            var salonlar = _context.Salonlar.ToList();
+            return View(salonlar);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Kuafor kuafor)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Salonlar.Add(kuafor);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(kuafor);
+        }
     }
 }
