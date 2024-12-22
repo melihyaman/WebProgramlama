@@ -1,8 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Anasayfa";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="text-center mt-5">
+    <h1 class="display-4">Kuaför/Berber Yönetim Sistemi</h1>
+    <p class="lead">Kuaför ve berber salonlarınızı kolayca yönetin!</p>
+    <p>Çalışanlarınızı, randevularınızı ve işlemlerinizi tek bir platformda takip edin.</p>
+    
+    <hr />
+
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary btn-lg m-2" asp-controller="Salon" asp-action="Index">Salonları Gör</a>
+        <a class="btn btn-success btn-lg m-2" asp-controller="Calisan" asp-action="Index">Çalışanları Yönet</a>
+        <a class="btn btn-info btn-lg m-2" asp-controller="Randevu" asp-action="Index">Randevular</a>
+    </div>
+    
+    <p class="mt-4">Yapay zeka desteği ile müşterilerinize özel saç modeli ve renk önerileri sunabilirsiniz.</p>
 </div>
