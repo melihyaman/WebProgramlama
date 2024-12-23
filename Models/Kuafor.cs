@@ -8,7 +8,6 @@ namespace WebProgramlama.Models
         public string Adres { get; set; }
         public string CalismaSaatleri { get; set; }
 
-        // Bir salonun işlemleri ve çalışanları
         public List<Islem> Islemler { get; set; }
         public List<Calisan> Calisanlar { get; set; }
     }
