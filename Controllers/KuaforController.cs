@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using WebProgramlama.Data;
 using WebProgramlama.Models;
 
 namespace WebProgramlama.Controllers
