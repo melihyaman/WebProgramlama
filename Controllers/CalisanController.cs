@@ -1,129 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
+using WebProgramlama.data;
 using WebProgramlama.Models;
 
-namespace KuaforYonetim.Controllers
+namespace WebProgramlama.Controllers
 {
     public class CalisanController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly KuaforContext _context;
 
-        public CalisanController(ApplicationDbContext context)
+        public CalisanController(KuaforContext context)
         {
             _context = context;
         }
 
-        // Çalışan Listesi
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int kuaforId)
         {
-            var calisanlar = await _context.Calisanlar.Include(c => c.Salon).ToListAsync();
+            var calisanlar = _context.Calisanlar.Where(c => c.KuaforId == kuaforId).ToList();
             return View(calisanlar);
         }
 
-        // Yeni Çalışan Formu
-        public IActionResult Create()
+        public IActionResult Create(int kuaforId)
         {
-            ViewBag.Salonlar = _context.Salonlar.ToList();
+            ViewBag.KuaforId = kuaforId;
             return View();
         }
 
-        // Yeni Çalışan Ekleme İşlemi
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Calisan calisan)
+        public IActionResult Create(Calisan calisan)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(calisan);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.Calisanlar.Add(calisan);
+                _context.SaveChanges();
+                return RedirectToAction("Index", new { kuaforId = calisan.KuaforId });
             }
-            ViewBag.Salonlar = _context.Salonlar.ToList();
             return View(calisan);
-        }
-
-        // Çalışan Detayları
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var calisan = await _context.Calisanlar
-                .Include(c => c.Salon)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (calisan == null) return NotFound();
-
-            return View(calisan);
-        }
-
-        // Çalışan Düzenleme Formu
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var calisan = await _context.Calisanlar.FindAsync(id);
-            if (calisan == null) return NotFound();
-
-            ViewBag.Salonlar = _context.Salonlar.ToList();
-            return View(calisan);
-        }
-
-        // Çalışan Düzenleme İşlemi
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Calisan calisan)
-        {
-            if (id != calisan.Id) return NotFound();
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(calisan);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CalisanExists(calisan.Id))
-                        return NotFound();
-                    else
-                        throw;
-                }
-                return RedirectToAction(nameof(Index));
-            }
-
-            ViewBag.Salonlar = _context.Salonlar.ToList();
-            return View(calisan);
-        }
-
-        // Çalışan Silme Formu
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var calisan = await _context.Calisanlar
-                .Include(c => c.Salon)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (calisan == null) return NotFound();
-
-            return View(calisan);
-        }
-
-        // Çalışan Silme İşlemi
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var calisan = await _context.Calisanlar.FindAsync(id);
-            _context.Calisanlar.Remove(calisan);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        // Çalışan Var mı Kontrol
-        private bool CalisanExists(int id)
-        {
-            return _context.Calisanlar.Any(e => e.Id == id);
         }
     }
 }

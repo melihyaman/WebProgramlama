@@ -1,16 +1,40 @@
 using Microsoft.AspNetCore.Mvc;
+using WebProgramlama.data;
+using WebProgramlama.Models;
 
-public class RandevuController : Controller
+namespace WebProgramlama.Controllers
 {
-    public IActionResult Index()
+    public class RandevuController : Controller
     {
-        // Randevuları listele
-        return View();
-    }
+        private readonly KuaforContext _context;
 
-    public IActionResult Create()
-    {
-        // Yeni randevu oluşturma
-        return View();
+        public RandevuController(KuaforContext context)
+        {
+            _context = context;
+        }
+
+        public IActionResult Index(int calisanId)
+        {
+            var randevular = _context.Randevular.Where(r => r.CalisanId == calisanId).ToList();
+            return View(randevular);
+        }
+
+        public IActionResult Create(int calisanId)
+        {
+            ViewBag.CalisanId = calisanId;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Randevu randevu)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Randevular.Add(randevu);
+                _context.SaveChanges();
+                return RedirectToAction("Index", new { calisanId = randevu.CalisanId });
+            }
+            return View(randevu);
+        }
     }
 }

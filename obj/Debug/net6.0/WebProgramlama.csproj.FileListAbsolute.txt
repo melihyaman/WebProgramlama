@@ -1,0 +1,8 @@
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.csproj.AssemblyReference.cache
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.AssemblyInfoInputs.cache
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.AssemblyInfo.cs
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.csproj.CoreCompileInputs.cache
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.RazorAssemblyInfo.cache
+C:\Users\PC01\Documents\GitHub\WebProgramlama\obj\Debug\net6.0\WebProgramlama.RazorAssemblyInfo.cs

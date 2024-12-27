@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using WebProgramlama.data;
 using WebProgramlama.Models;
 
 namespace WebProgramlama.Controllers
@@ -14,8 +15,8 @@ namespace WebProgramlama.Controllers
 
         public IActionResult Index()
         {
-            var salonlar = _context.Salonlar.ToList();
-            return View(salonlar);
+            var kuaforler = _context.Salonlar.ToList();
+            return View(kuaforler);
         }
 
         public IActionResult Create()
